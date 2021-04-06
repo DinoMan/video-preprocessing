@@ -239,7 +239,7 @@ if __name__ == "__main__":
     parser.add_argument("--out_folder", default='vox-png', help='Folder for processed dataset')
     parser.add_argument("--chunks_metadata", default='vox-metadata.csv', help='File with metadata')
 
-    parser.add_argument("--youtube", default='./youtube-dl', help='Command for launching youtube-dl')
+    parser.add_argument("--youtube", default='youtube-dl', help='Command for launching youtube-dl')
     parser.add_argument("--workers", default=1, type=int, help='Number of parallel workers')
     parser.add_argument("--device_ids", default="0", help="Names of the devices comma separated.")
 
