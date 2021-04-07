@@ -70,7 +70,7 @@ def store(frame_list, tube_bbox, video_id, utterance, person_id, start, end, vid
 
     start += round(chunk_start * REF_FPS)
     end += round(chunk_start * REF_FPS)
-    name = (person_id + "#" + video_id + "#" + utterance + '#' + str(video_count).zfill(3) + ".mp4")
+    name = (person_id + "/" + video_id + "/" + utterance + '#' + str(video_count).zfill(3) + ".mp4")
     partition = 'test' if person_id in TEST_PERSONS else 'train'
     save(os.path.join(args.out_folder, partition, name), out, args.format)
     return [{'bbox': '-'.join(map(str, final_bbox)), 'start': start, 'end': end, 'fps': REF_FPS,
@@ -102,10 +102,8 @@ def crop_video(person_id, video_id, video_path, args):
                 start = i
                 tube_bbox = bbox
 
-            if bb_intersection_over_union(initial_bbox, bbox) < args.iou_with_initial or len(
-                    frame_list) >= args.max_frames:
-                chunks_data += store(frame_list, tube_bbox, video_id, utterance, person_id, start, i, video_count, chunk_start,
-                                     args)
+            if bb_intersection_over_union(initial_bbox, bbox) < args.iou_with_initial or len(frame_list) >= args.max_frames:
+                chunks_data += store(frame_list, tube_bbox, video_id, utterance, person_id, start, i, video_count, chunk_start, args)
                 video_count += 1
                 initial_bbox = bbox
                 start = i
@@ -226,7 +224,7 @@ if __name__ == "__main__":
     parser.add_argument("--image_shape", default=(256, 256), type=lambda x: tuple(map(int, x.split(','))),
                         help="Image shape")
     parser.add_argument("--increase", default=0.1, type=float, help='Increase bbox by this amount')
-    parser.add_argument("--min_frames", default=64, type=int, help='Mimimal number of frames')
+    parser.add_argument("--min_frames", default=25, type=int, help='Mimimal number of frames')
     parser.add_argument("--max_frames", default=1024, type=int, help='Maximal number of frames')
     parser.add_argument("--min_size", default=256, type=int, help='Minimal allowed size')
     parser.add_argument("--format", default='.png', help='Store format (.png, .mp4)')

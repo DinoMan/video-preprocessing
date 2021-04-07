@@ -115,6 +115,9 @@ def scheduler(data_list, fn, args):
 
 def save(path, frames, format):
     if format == '.mp4':
+        dir_path = os.path.dirname(path)
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
         imageio.mimsave(path, frames, fps=25)
     elif format == '.png':
         if os.path.exists(path):

@@ -14,7 +14,13 @@ TaiChi can be downloade directly in format [.mp4](https://yadi.sk/d/03C366987mkS
 pip install -r requirements.txt
 ```
 
-2) Run the script
+2) Get the bounding boxes:
+```
+wget www.robots.ox.ac.uk/~vgg/data/voxceleb/data/vox2_dev_txt.zip
+unzip vox2_dev_txt.zip
+```
+
+3) Run the script
 ```
 python crop_vox.py --workers 40 --device_ids 0,1,2,3,4,5,6,7 --format .mp4 --dataset_version 2
 ```
